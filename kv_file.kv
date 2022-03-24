@@ -1,9 +1,53 @@
 
+<DetailsContent@BoxLayout>:
+    orientation: 'vertical'
+    
+    # size_hint:None,None
+    # size : self.size
+    
+    MDBoxLayout:
+        size_hint_y:.1
+        orientation: 'vertical'
+        # size_hint: 1,None
+        # height: self.window_height/2
+        # height:root.height
+        # height: "120dp"
+        # padding: ('0dp', '0dp', '0dp', '0dp')
+        
+        MDIconButton:
+            icon:'close-thick'
+            pos_hint:{'right':1}
+            on_press: app.custom_sheet.dismiss()
+        MDSeparator:
+    
+    MDGridLayout:
+        size_hint_y:.9
+        cols:1   
+        spacing: '20dp'
+
+        MDLabel:
+            text:'This is test'	
+        MDLabel:
+            text:'This is test'	
+        MDLabel:
+            text:'This is test'	
+        MDLabel:
+            text:'This is test'	
+        MDLabel:
+            text:'This is test'	
+        MDLabel:
+            text:'This is test'	
+
+    
+    # pos_hint:{'center_x':.5,'center_y':.3}
+
+        
+
 MDNavigationLayout:
     ScreenManager:
         id : screen_manager
-        MainPage:
         ProductsPage:
+        MainPage:
         WelcomeScreen:
         AboutPage:
         ProfilePage:
@@ -265,7 +309,7 @@ MDNavigationLayout:
                         pos_hint:{'center_x':1}
                         size_hint:None,.8
                         on_release:
-                            root.manager.current='ProductsPage'
+                            app.go_to_products('hoody')
         
       
            
