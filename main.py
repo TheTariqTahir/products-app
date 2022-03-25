@@ -1,31 +1,24 @@
-
-from turtle import width
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.metrics import dp, sp
-# import requests
+from kivy.metrics import dp
+
 
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivymd.utils.fitimage import FitImage
-# from kivymd.uix.list import ThreeLineListItem
 from kivymd.uix.label import MDLabel
-# from kivymd.uix.menu import MDDropdownMenu
-from kivymd.uix.button import MDRaisedButton
-# from kivymd.uix.list import TwoLineIconListItem,TwoLineListItem
 from kivymd.uix.card import MDCard
-# from kivymd.uix.bottomsheet import MDCustomBottomSheet
+from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivy.core.window import Window
 w=Window.size = 400,800
+# w=Window.size
+# from kivymd.uix.bottomsheet import MDCustomBottomSheet
+from kivy.factory import Factory
 
 import glob
 
-
-
-
-
-
+from kivymd.toast import toast
 
 
 
@@ -38,7 +31,9 @@ class MainPage(Screen):
     pass
 
 class ProductsPage(Screen):
+    pass
 
+class ProductsDeatailsPage(Screen):
     pass
 
 
@@ -57,13 +52,22 @@ sm.add_widget(MainPage(name='MainPage'))
 sm.add_widget(AboutPage(name='AboutPage'))
 sm.add_widget(ProfilePage(name='ProfilePage'))
 sm.add_widget(ProductsPage(name='ProductsPage'))
+sm.add_widget(ProductsDeatailsPage(name='ProductsDeatailsPage'))
 
-
-
+from kivy.uix.anchorlayout import AnchorLayout
+    
+# class DetailsContent(MDBoxLayout):
+#     window_height= w[1]
+#     pass
         
 class Main(MDApp):
     path_to_kv_file='kv_file.kv'
     
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_keyboard=self.onBackKey)
+        self.count_back=0
+
 
     def build(self):
         self.theme_cls.primary_palette = "DeepOrange"
@@ -71,6 +75,7 @@ class Main(MDApp):
         self.theme_cls.theme_style = "Light"
         # self.theme_cls.theme_style = "Dark"
         self.custom_name = 'Company Name'
+        self.screen_list = []
 
         # text_file = open('hotreloader.kv','r')
         # KV= text_file.read()
@@ -78,10 +83,6 @@ class Main(MDApp):
         
         self.builder = Builder.load_file('kv_file.kv')
 
-        
-
-
-        
 
         self.mainPageShirt_list = []
         self.mainPageItems('shirts',self.mainPageShirt_list)
@@ -92,32 +93,23 @@ class Main(MDApp):
         self.mainPageHoody_list = []
         self.mainPageItems('hoody',self.mainPageHoody_list)
 
-
         self.show_shirts()
         self.show_jacket_test()
         self.show_hoody()
 
-        
-        # print(shirts_list)
-
-
-
-
-        
-        
-    
+        # self.show_products()
 
         return self.builder
     def mainPageItems(self,src_path,list_):
         path  = 'src/'+src_path+'/'
         contents_list = (glob.glob(str(path)+'*'))
-        print(contents_list)
+        # print(contents_list)
 
         for i in contents_list:
             j = i.split('\\')
             list_.append(j[-1])
 
-
+    
     
     def update_kv_files(self,text):
         
@@ -155,6 +147,7 @@ class Main(MDApp):
                         width= w[0]/2.2,
                         height= w[1]/2.5,
                         md_bg_color=(1,1,1,1),
+                        on_release=lambda x: self.change_screen('ProductsDeatailsPage','left')
                 )
             fit_image = FitImage(
                             radius= [25,],
@@ -229,7 +222,7 @@ class Main(MDApp):
                 )
 
     def show_hoody(self):
-        print('run')
+        # print('run')
         for i in range(4):
             card = MDCard(
                         elevation=10,
@@ -237,6 +230,9 @@ class Main(MDApp):
                                               
                         size_hint = (None,.9),
                         width= dp(100),
+                        # on_touch_down=self.show_dialog('aa','aaaa')                
+                        
+                        
                        
                 )
             fit_image = FitImage(
@@ -244,34 +240,56 @@ class Main(MDApp):
                             size_hint=(1,1),
                             # size = (dp(100),dp(100)),                            
                             source=str('src/hoody/')+self.mainPageHoody_list[i],
-                            
             )
             
-
+            
             card.add_widget(fit_image)
             # ard.add_widget(label)
             
-            self.card = self.builder.ids.screen_manager.get_screen('MainPage').ids.mainPageHoddy.add_widget(
+            self.cards = self.builder.ids.screen_manager.get_screen('MainPage').ids.mainPageHoddy.add_widget(
                 card
                 )
+    def checking(self):
+        print('test')
     
-    def show_jackets(self):
-        pass
-
-    def show_pants(self):
-        pass
+    
 
     def go_to_products(self,item):
             # print('run')
+            if not self.builder.ids.screen_manager.current in self.screen_list:
+                self.screen_list.append(self.builder.ids.screen_manager.current)
             self.builder.ids.screen_manager.get_screen('ProductsPage').ids.ProductsPage.clear_widgets()
-            print('cleared')
+            # print('cleared')
             self.show_products(item)
             self.builder.ids.screen_manager.transition.direction  = 'left'  
             self.builder.ids.screen_manager.current = 'ProductsPage'
+            self.count_back=0
+
             
-    def change_screen(self,new_screen):
-            self.builder.ids.screen_manager.transition.direction  = 'right'  
-            self.builder.ids.screen_manager.current = new_screen
+    def change_screen(self,screen,animation):
+        if not self.builder.ids.screen_manager.current in self.screen_list:
+            self.screen_list.append(self.builder.ids.screen_manager.current)
+        self.count_back=0
+        self.builder.ids.screen_manager.current = screen
+        self.builder.ids.screen_manager.transition.direction=animation
+        
+    def onBackKey(self,window,key,*args):
+        # print(self.screen_list)
+        # print(key)
+        # print('run')
+        if key == 27 and self.screen_list ==[] and self.count_back ==0:
+            self.count_back = 1
+            toast('Press Back Again to exit',duration=1)
+            return True
+        
+
+        if key == 27 and self.screen_list ==[] and self.count_back ==1:
+            return False
+            
+        elif key ==27:
+            self.builder.ids.screen_manager.current = self.screen_list.pop()
+            self.builder.ids.screen_manager.transition.direction='right'
+            return True
 
         
     def show_dialog(self, title, text):

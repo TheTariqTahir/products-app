@@ -1,0 +1,74 @@
+# MDBackdrop:
+#         id: backdrop
+#         left_action_items: [['home', lambda x: self.open()]]
+#         title: "Example Backdrop"
+		
+#         header_text: "Menu:"
+
+#         MDBackdropBackLayer:
+           
+
+#         MDBackdropFrontLayer:
+
+MDBoxLayout:
+	orientation: 'vertical'
+	md_bg_color:app.theme_cls.primary_dark
+	MDCard:
+		elevation:10
+		size_hint_y:root.height/3
+		md_bg_color: app.theme_cls.primary_dark
+		padding:dp(20)
+		FitImage:
+			source:'src/shirts/shirt1.jpg'
+	MDCard:
+		elevation:10
+		size_hint_y: root.height/2
+		radius:[25,25,0,0]
+		padding: ('20dp', '0dp', '20dp', '20dp')
+		
+		MDBoxLayout:
+			orientation: 'vertical'
+			MDBoxLayout:
+				
+				orientation: 'vertical'
+				size_hint_y:.2
+				MDIconButton:
+					adaptive_size:True
+					icon:'tooltip-remove-outline'	
+					pos_hint:{'right':1}
+
+				MDSeparator:	
+			MDGridLayout:
+				cols:1
+				MDLabel:
+					text:'Title'
+					font_style:'Button'
+					font_size:dp(25)
+					size_hint_y:None
+					height:dp(60)
+					
+				
+				MDLabel:
+					text:'Soccer short sleeve Shirt'
+					font_style:'Caption'
+					font_size:dp(15)
+					size_hint_y:.4
+				MDBoxLayout:
+					MDLabel:
+						text:'Price'
+						font_style:'Button'
+						font_size:dp(20)
+						size_hint_x:.35					
+						
+					MDLabel:
+						text:'$50'
+						font_style:'Caption'
+						font_size:dp(15)
+					
+					
+			
+				
+				
+			
+			
+				
