@@ -1,0 +1,57 @@
+MDGridLayout:
+	cols:1
+	id:box
+	FitImage:
+		source:'src/company_logo.jpg'
+		size_hint:1,None
+		height:dp(200)
+		# width:dp(700)
+        # keep_ratio: True
+		allow_stretch:True
+	MDGridLayout:
+		cols:1
+		spacing:4
+		padding:15
+		
+		MDCard:
+			md_bg_color:app.theme_cls.primary_dark
+			elevation:12
+
+			size_hint:1,None
+			height:root.height/11
+			pos_hint:{'center_x':.5}
+			orientation: 'horizontal'
+			
+			MDIconButton:
+				icon:'home'
+				pos_hint:{'center_y':.5}
+			MDLabel:
+				text:'Home'
+		MDCard:
+			# md_bg_color:(1,1,.3,1)
+			elevation:12
+
+			size_hint:1,None
+			height:root.height/11
+			pos_hint:{'center_x':.5}
+			orientation: 'horizontal'
+			MDIconButton:
+				icon:'home'
+				pos_hint:{'center_y':.5}
+			MDLabel:
+				text:'Home'
+		MDCard:
+			# md_bg_color:(1,1,.3,1)
+			elevation:12
+
+			size_hint:1,None
+			height:root.height/11
+			pos_hint:{'center_x':.5}
+			orientation: 'horizontal'
+			MDIconButton:
+				icon:'home'
+				pos_hint:{'center_y':.5}
+			MDLabel:
+				text:'Home'
+
+			

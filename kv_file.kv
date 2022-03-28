@@ -3,6 +3,7 @@ MDNavigationLayout:
     ScreenManager:
         id : screen_manager
         MainPage:
+        ProductsDeatailsPage:
         ProductsPage:
         WelcomeScreen:
         AboutPage:
@@ -13,6 +14,7 @@ MDNavigationLayout:
         size_hint: .6,1
         MDGridLayout:
             cols:1
+            id:boxes
             
             FitImage:
                 source:'src/company_logo.jpg'
@@ -23,25 +25,29 @@ MDNavigationLayout:
                 size_hint: 1,.8
                 OneLineIconListItem:
                     text: 'Home'
+                    # bg_color:(1,.5,.0,1)
                     on_release: 
-                        screen_manager.current='MainPage'
+                        app.change_screen('MainPage','left')
                         app.toggle_nav()
+                        app.change_nav_drawer_color(self)
                     IconLeftWidget:
                         icon: "warehouse"
+                        on_release: 
+                            app.change_screen('MainPage','left')
+                            app.toggle_nav()
+                            app.change_nav_drawer_color(self)
                 OneLineIconListItem:
                     text: 'Profile'
                     on_release: 
-                        screen_manager.current='ProfilePage'
+                        app.change_screen('ProfilePage','left')
                         app.toggle_nav()
+                        app.change_nav_drawer_color(self)
                     IconLeftWidget:
                         icon: "face-profile"
-                # OneLineIconListItem:
-                #     text: 'ProductsPage'
-                #     on_release: 
-                #         screen_manager.current='ProductsPage'
-                #         app.toggle_nav()
-                #     IconLeftWidget:
-                #         icon: "tshirt-crew"
+                        on_release: 
+                            app.change_screen('ProfilePage','left')
+                            app.toggle_nav()
+               
             
             MDList:
                 size_hint: 1,.2
@@ -49,11 +55,14 @@ MDNavigationLayout:
                 OneLineAvatarListItem:
                     text: 'About'
                     on_release: 
-                        screen_manager.current='AboutPage'
+                        app.change_screen('AboutPage','left')
                         app.toggle_nav()
                     ImageLeftWidget:
                         source:'src/company_logo.jpg'
                         size_hint: .9,.9
+                        # on_press: 
+                        #     app.change_screen('AboutPage','left')
+                        #     app.toggle_nav()
                 OneLineListItem:
                     text: 'Made by Tariq-Dev'
 
@@ -77,10 +86,13 @@ MDNavigationLayout:
             radius:[25,]
             size_hint: .95,.4
             pos_hint: {'center_x':.5}
-            elevation:15
+            elevation:24
+            # md_bg_color:app.theme_cls.primary_dark
             MDLabel:
-                text:'Main App Content'
+                text:'New and Stylish'
+                font_name: 'font/Sweet Valentine.ttf'
                 halign:'center'
+                font_size:dp(36)
         MDCard:
             # md_bg_color: .8,.8,.1,1
             radius:[25,]
@@ -265,7 +277,7 @@ MDNavigationLayout:
                         pos_hint:{'center_x':1}
                         size_hint:None,.8
                         on_release:
-                            root.manager.current='ProductsPage'
+                            app.go_to_products('hoody')
         
       
            
@@ -281,7 +293,6 @@ MDNavigationLayout:
         MDToolbar:
             title:'Custom Name'
             left_action_items: [["menu", lambda x: app.toggle_nav()]]
-            right_action_items: [["arrow-left", lambda x: app.change_screen('MainPage')]]
         # MDBoxLayout:
         #     orientation: 'vertical'
             # md_bg_color: .8,.8,.1,1
@@ -326,3 +337,80 @@ MDNavigationLayout:
             text:'ProfilePage'
             halign: 'center'
     
+<ProductsDeatailsPage>
+    name:'ProductsDeatailsPage'
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        md_bg_color:app.theme_cls.primary_dark
+        MDCard:
+            elevation:10
+            size_hint_y:root.height/3
+            md_bg_color: app.theme_cls.primary_dark
+            padding:dp(20)
+            FitImage:
+                id: productInfoImage
+                source:'src/shirts/shirt1.jpg'
+        MDCard:
+            elevation:10
+            size_hint_y: root.height/2
+            radius:[25,25,0,0]
+            padding: ('20dp', '0dp', '20dp', '20dp')
+            
+            MDBoxLayout:
+                orientation: 'vertical'
+                MDBoxLayout:
+                    
+                    orientation: 'vertical'
+                    size_hint_y:.2
+                    MDIconButton:
+                        adaptive_size:True
+                        icon:'tooltip-remove-outline'	
+                        pos_hint:{'right':1}
+                        on_release:app.onCross()
+
+                    MDSeparator:	
+                MDGridLayout:
+                # MDBoxLayout:
+                    cols:1
+                    
+                    # orientation: 'vertical'
+                    
+                    MDLabel:
+                        text:'Title'
+                        font_style:'Button'
+                        font_size:dp(25)
+                        size_hint_y:None
+                        height:dp(50)
+                        # adaptive_height:True
+                        
+                    
+                    MDLabel:
+                        text:'Soccer short sleeve Shirt'
+                        font_style:'Caption'
+                        font_size:dp(15)
+                        # size_hint_y:None
+                        # height:dp(5)
+                        adaptive_height:True
+                    MDBoxLayout:
+                        adaptive_height:True
+                        MDLabel:
+                            text:'Price'
+                            font_style:'Button'
+                            font_size:dp(20)
+                            size_hint_x:.3	
+                            size_hint_y:1.2				
+                            # adaptive_height:True
+                        MDLabel:
+                            text:'$50'
+                            font_style:'Caption'
+                            font_size:dp(15)
+                            size_hint_y:1.2				
+                            
+                            
+                
+                    
+                    
+                
+                
+                    
