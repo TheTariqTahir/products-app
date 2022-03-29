@@ -1,3 +1,5 @@
+from cgi import print_arguments
+from time import sleep
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -10,7 +12,7 @@ from kivymd.utils.fitimage import FitImage
 from kivymd.uix.label import MDLabel
 from kivymd.uix.card import MDCard
 from kivy.core.window import Window
-w=Window.size = 400,600
+w=Window.size = 360,600
 # w=Window.size
 # from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivy.factory import Factory
@@ -110,6 +112,42 @@ class Main(MDApp):
         # self.show_products()
 
         return self.builder
+    def change_theme(self):
+        if self.theme_cls.theme_style == "Light":
+            self.theme_cls.theme_style = "Dark"
+            # print(self.builder.ids.screen_manager.current = self.screen_list.pop())
+            print(self.screen_list)
+            self.builder.ids.nav_item.md_bg_color=self.theme_cls.bg_normal
+            
+                
+                   
+                
+                
+            
+            # print(self.screen_list)
+            # self.screen_list  =[]
+            # self.screen_list.append(self.builder.ids.screen_manager.current)
+    
+            # self.builder.ids.screen_manager.current = self.screen_list.pop()
+            # # print(self.builder.ids.screen_manager.current)
+        else:
+            self.theme_cls.theme_style = "Light"
+            self.builder.ids.nav_item.md_bg_color=self.theme_cls.bg_normal
+            
+            # self.screen_list  =[]
+                
+            # self.screen_list.append(self.builder.ids.screen_manager.current)
+            # print(self.screen_list)
+            # # print(self.builder.ids.screen_manager.current)
+
+            # self.builder.ids.screen_manager.current = self.screen_list.pop()
+
+
+
+        
+    def refresh(self,ins):
+        sm.refresh()
+        
     def mainPageItems(self,src_path,list_):
         # path  = 'src/'+src_path+'/'
         path = os.path.join(self.source_path,src_path)
@@ -131,17 +169,18 @@ class Main(MDApp):
                 if item == j:
                     item.md_bg_color=self.theme_cls.primary_color
                 else:
-                    j.md_bg_color=(1,1,1,1)
+                    j.md_bg_color=self.theme_cls.bg_normal
     
     def update_kv_files(self,text):
         
         with open(self.path_to_kv_file,"w+") as kv_file:
             kv_file.write(text)
     def toggle_nav(self):
+            
             self.root.ids.nav_drawer.set_state('toggle')
 
     def show_products(self,src_path,items=0):
-    
+        
         self.builder.ids.screen_manager.get_screen('ProductsPage').ids.ProductsPage.clear_widgets()
 
         # path  = 'src/'+src_path+'/'
@@ -228,6 +267,7 @@ class Main(MDApp):
                 )
     def show_jacket_test(self):
         # print('run')
+        
         folder_path = 'jackets/'
         path = os.path.join(self.source_path,folder_path)
         for i in range(4):
@@ -260,6 +300,7 @@ class Main(MDApp):
 
     def show_hoody(self):
         # print('run')
+        
         folder_path = 'hoody/'
         path = os.path.join(self.source_path,folder_path)
         for i in range(4):
@@ -298,6 +339,7 @@ class Main(MDApp):
 
     def go_to_products(self,item):
         # print('run')
+        
         if not self.builder.ids.screen_manager.current in self.screen_list:
             self.screen_list.append(self.builder.ids.screen_manager.current)
         self.builder.ids.screen_manager.get_screen('ProductsPage').ids.ProductsPage.clear_widgets()
@@ -308,17 +350,22 @@ class Main(MDApp):
         self.count_back=0
 
     def showProductInfo(self,image_url):
+        
         # self.builder.ids.screen_manager.get_screen('ProductsDeatailsPage').ids.ProductsPage.clear_widgets()
         self.builder.ids.screen_manager.get_screen('ProductsDeatailsPage').ids.productInfoImage.source =image_url
         self.change_screen('ProductsDeatailsPage','up')
         
             
     def change_screen(self,screen,animation):
+        # self.screen_list.append(self.builder.ids.screen_manager.current)
+        print('ran')
         if not self.builder.ids.screen_manager.current in self.screen_list:
             self.screen_list.append(self.builder.ids.screen_manager.current)
+            
         self.count_back=0
         self.builder.ids.screen_manager.current = screen
         self.builder.ids.screen_manager.transition.direction=animation
+        
         
     def onBackKey(self,window,key,*args):
         
@@ -334,11 +381,13 @@ class Main(MDApp):
         elif key ==27:
             self.builder.ids.screen_manager.current = self.screen_list.pop()
             self.builder.ids.screen_manager.transition.direction='right'
+            
             return True
 
     def onCross(self):
         self.builder.ids.screen_manager.current = self.screen_list.pop()
         self.builder.ids.screen_manager.transition.direction='down'
+        
 
     
     def show_dialog(self, title, text):

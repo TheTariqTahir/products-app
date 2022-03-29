@@ -1,4 +1,6 @@
 
+
+
 MDNavigationLayout:
     ScreenManager:
         id : screen_manager
@@ -30,6 +32,7 @@ MDNavigationLayout:
                 padding:15
                 
                 MDCard:
+                    id:nav_item
                     md_bg_color:app.theme_cls.primary_color
                     elevation:12
 
@@ -50,6 +53,7 @@ MDNavigationLayout:
                         text:'Main Page'
                 
                 MDCard:
+                    id:nav_item
                     # md_bg_color:(1,1,.3,1)
                     elevation:12
 
@@ -57,7 +61,7 @@ MDNavigationLayout:
                     height:root.height/12
                     pos_hint:{'center_x':.5}
                     orientation: 'horizontal'
-                    on_press:print('clicked')
+                    # on_press:print('clicked')
                     padding: ('10dp', '0dp', '0dp', '0dp')
                     spacing:10
                     on_release: 
@@ -70,17 +74,36 @@ MDNavigationLayout:
                         size_hint:None,None
                         width:dp(30)
                         height:dp(30)
-                        
-                        
-                        
                         pos_hint:{'center_y':.5}
                     MDLabel:
                         text:'Company Info'
+
+                # MDCard:
+                #     elevation:12
+
+                #     size_hint:1,None
+                #     height:root.height/12
+                #     pos_hint:{'center_x':.5}
+                #     orientation: 'horizontal'
+                #     on_release: 
+                #         app.change_theme()
+                #         app.toggle_nav()
+                #         # app.change_nav_drawer_color(self)
+                    
+                    
+                #     MDIconButton:
+                #         icon:'theme-light-dark'
+                #         pos_hint:{'center_y':.5}
+                #     MDLabel:
+                #         id: light_dark
+                #         text:'Turn on Dark Mode'
+
             MDBoxLayout:
                 orientation: 'vertical'
                 padding:15
                 
                 MDCard:
+                    id:nav_item
                     # md_bg_color:(1,1,.3,1)
                     elevation:12
 
@@ -103,6 +126,7 @@ MDNavigationLayout:
 
 <WelcomeScreen>
     name:'WelcomeScreen'
+ 
 
 <MainPage>
     name:'MainPage'
@@ -112,11 +136,10 @@ MDNavigationLayout:
         padding: ('0dp', '0dp', '0dp', '25dp')
         spacing:15
         MDToolbar:
-            title:app.custom_name
-            
+            title:app.custom_name           
             left_action_items: [["menu", lambda x: app.toggle_nav()]]
-            # pos_hint:{'top':1}
-            # size_hint: 1,.1
+            right_action_items: [["theme-light-dark", lambda x: app.change_theme()]]
+            
         MDCard:
             # md_bg_color: .8,.8,.1,1
             radius:[25,]
@@ -190,7 +213,8 @@ MDNavigationLayout:
                     padding: ('0dp', '0dp', '10dp', '0dp')
                     MDRaisedButton:
                         text:'View All'   
-                        md_bg_color:1,1,1,1
+                        md_bg_color:app.theme_cls.bg_light
+                        
                         elevation:0          
                         text_color:app.theme_cls.primary_dark
                         pos_hint:{'center_x':1}
@@ -250,7 +274,8 @@ MDNavigationLayout:
                     padding: ('0dp', '0dp', '10dp', '0dp')
                     MDRaisedButton:
                         text:'View All'   
-                        md_bg_color:1,1,1,1
+                        md_bg_color:app.theme_cls.bg_light
+                        
                         elevation:0          
                         text_color:app.theme_cls.primary_dark
                         pos_hint:{'center_x':1}
@@ -310,7 +335,8 @@ MDNavigationLayout:
                     padding: ('0dp', '0dp', '10dp', '0dp')
                     MDRaisedButton:
                         text:'View All'   
-                        md_bg_color:1,1,1,1
+                        md_bg_color:app.theme_cls.bg_light
+                        
                         elevation:0          
                         text_color:app.theme_cls.primary_dark
                         pos_hint:{'center_x':1}
@@ -490,7 +516,7 @@ MDNavigationLayout:
     name:'DevaloperPage'
     MDCard:
         orientation: 'vertical'
-        # md_bg_color:1,.2,.2,1
+        md_bg_color:app.theme_cls.bg_darkest
         MDToolbar:
             title:app.custom_name
             
@@ -499,6 +525,7 @@ MDNavigationLayout:
         
         MDCard:
             # md_bg_color:.1,1,.1,1
+            md_bg_color:app.theme_cls.bg_dark
             
             elevation:20
             # size_hint_y:.43
@@ -513,6 +540,7 @@ MDNavigationLayout:
         ScrollView:
             MDCard:
                 elevation:20
+                md_bg_color:app.theme_cls.bg_dark
                 padding: ('20dp', '80dp', '20dp', '20dp')
                 # size_hint_y:1
                 size_hint_y:None
@@ -536,7 +564,8 @@ MDNavigationLayout:
                             font_size:dp(15)
 
                     MDCard:
-                        md_bg_color:1,1,1,1
+                        # md_bg_color:app.theme_cls.bg_darkest
+                        
                         elevation:15
                         radius:[20,]
                         padding: ('20dp', '0dp', '20dp', '20dp')
@@ -565,7 +594,8 @@ MDNavigationLayout:
                                 text:'I can make Professional Looking Android Apps, Windows Software and Website etc..\nI can Work in Following Language \n -> Python  -> javascript \n -> Php -> VBA'
                                 font_size:dp(15)
                     MDCard:
-                        md_bg_color:1,1,1,1
+                        # md_bg_color:app.theme_cls.bg_darkest
+                        
                         elevation:15
                         radius:[20,]
                         padding: ('20dp', '0dp', '20dp', '20dp')
