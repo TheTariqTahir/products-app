@@ -1,0 +1,137 @@
+MDCard:
+	orientation: 'vertical'
+	# md_bg_color:1,.2,.2,1
+	MDToolbar:
+		title:app.custom_name
+		
+		left_action_items: [["menu", lambda x: app.toggle_nav()]]
+
+	
+	MDCard:
+		# md_bg_color:.1,1,.1,1
+		
+		elevation:20
+		# size_hint_y:.43
+		size_hint_y:None
+		height:(28/100)*root.height
+		padding:10
+		Image:
+			source:'src/profile_pic/back.jpeg'
+			allow_stretch:True
+			keep_ratio:False
+	
+	ScrollView:
+		MDCard:
+			elevation:20
+			padding: ('20dp', '80dp', '20dp', '20dp')
+			# size_hint_y:1
+			size_hint_y:None
+			height:root.height
+			# adaptive_height:False
+			MDGridLayout:
+				cols:1
+				spacing:10
+				
+				MDBoxLayout:
+					adaptive_height:True
+					orientation: 'vertical'
+					MDLabel:
+						text:'M. Tariq Tahir'
+						font_name: 'font/Chopsic-K6Dp.ttf'
+						font_size:dp(30)
+						adaptive_height:True
+					MDLabel:
+						adaptive_height:True
+						text:'\nSoftware Devaloper\n'
+						font_size:dp(15)
+
+				MDCard:
+					elevation:10
+					radius:[20,]
+					padding: ('20dp', '0dp', '20dp', '20dp')
+					# adaptive_height:True
+					size_hint_y:None
+					height: dp(160)
+					orientation: 'vertical'
+					# spacing:10
+					MDGridLayout:
+						cols:1
+						spacing: 10
+						padding: ('0dp', '20dp', '0dp', '0dp')
+						MDLabel:
+							text:'Skills'
+							font_name: 'font/Chopsic-K6Dp.ttf'
+							font_size:dp(20)
+							# pos_hint:{'top':1}
+							# size_hint_y:.3
+							# size_hint_y:.2
+							adaptive_height:True
+						MDLabel:
+							adaptive_height:True
+							# pos_hint:{'top':.8}
+							# size_hint_y:.9
+							# text:'\n I can make Professional Android Apps, Windows Software, Websites etc.\nI can work in Python, JavaScript, Vba etc.'
+							text:'I can make Professional Looking Android Apps, Windows Software and Website etc..\nI can Work in Following Language \n -> Python  -> javascript \n -> Php -> VBA'
+							font_size:dp(15)
+				MDCard:
+					elevation:10
+					radius:[20,]
+					padding: ('20dp', '0dp', '20dp', '20dp')
+					# adaptive_height:True
+					size_hint_y:None
+					height: dp(160)
+					orientation: 'vertical'
+					# spacing:10
+					MDGridLayout:
+						cols:1
+						spacing: 10
+						padding: ('0dp', '20dp', '0dp', '0dp')
+						MDLabel:
+							text:'Phone / website'
+							font_name: 'font/Chopsic-K6Dp.ttf'
+							font_size:dp(20)
+							# pos_hint:{'top':1}
+							# size_hint_y:.3
+							# size_hint_y:.2
+							adaptive_height:True
+					
+						MDGridLayout:
+							cols:2
+							MDIconButton:
+								icon:'email'
+								# adaptive_height:True
+								# pos_hint:{'center_y':.6}
+								# icon_size:dp(20)
+							MDLabel:
+								# adaptive_height:True
+								# pos_hint:{'center_y':.6}
+								text:'abc@yourcompany.com '
+								font_size:dp(15)
+							
+							MDIconButton:
+								icon:'whatsapp'
+								# adaptive_height:True
+								# pos_hint:{'center_y':.6}
+								# icon_size:dp(20)
+							MDLabel:
+								# adaptive_height:True
+								# pos_hint:{'center_y':.6}
+								text:'0304 075 5464 '
+								font_size:dp(15)
+
+				
+		
+	MDFloatLayout:	
+		size_hint_y:.00001
+		
+		canvas:
+			Color:
+				rgb:(1,1,1,1)
+			Ellipse:
+				# pos:root.width/8,root.height -dp(320)
+				pos:root.width/8,(55/100)*root.height
+				source:'src/profile_pic/front.jpeg'
+				size:root.width/2.5,root.height/5
+					
+				
+				
